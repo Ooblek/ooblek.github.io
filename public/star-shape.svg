@@ -1,0 +1,10 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 434 437" width="434" height="437">
+	<title>New Project</title>
+	<defs>
+		<filter x="-50%" y="-50%" width="200%" height="200%" id="f1" ><feDropShadow dx="7.632432865407834" dy="4.769273378098844" stdDeviation="0" flood-color="#000000" flood-opacity="1"/></filter>
+	</defs>
+	<style>
+		.s0 { filter: url(#f1);fill: #fdfd96 } 
+	</style>
+	<path id="Shape 1" fill-rule="evenodd" class="s0" d="m342.5 392.3l-119-89.2-71.3 130.5-4.4-148.7-146.6 25.6 113.5-96.1-111.3-98.6 145.9 28.7 7.7-148.5 68.4 132 121-86.6-60.6 135.9 143.1 40.5-143.9 37.4z"/>
+</svg>
