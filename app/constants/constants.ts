@@ -1,4 +1,14 @@
-export const HEROTYPES = ['Full Stack Developer', 'Open Source Afficionado', 'Linux Enthusiast', 'Frontend Developer', 'Backend Developer']
+export const HEROTYPES = ['Full Stack Developer 📚', 
+    'Open Source Aficionado 🚀', 
+    'Linux Enthusiast 🐧', 
+    'Frontend Developer 📲', 
+    'Backend Developer 💽',
+    'Tech Wizard 🧙‍♂️',
+    'Very Cool Dude 😎', 
+    'Mobile Developer 📱',
+    'Coffee Addict ☕',
+    'Optimization Advocate 🏃'
+]
 
 export const SKILLS = [
     {
