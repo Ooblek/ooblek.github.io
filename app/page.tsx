@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button"
 import tailwindConfig from "@/tailwind.config";
-import { useEffect, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { EDUCATION, FRAMEWORKS, HEROTYPES, OTHERS, PROJECTS, SKILLS, WORK } from "./constants/constants";
-import {  AnimatePresence, motion, Variants } from "framer-motion";
+import {  animate, AnimatePresence, motion, Variants } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Hand, Mail, Smile } from "lucide-react";
 import Marquee from "@/components/ui/marquee";
 import useCustomMediaQuery from "./hooks/mediaQuery";
@@ -22,6 +22,14 @@ import Education from "@/components/ui/home/education";
 export default function Home() {
   const [currentType, setType] = useState('Full Stack Developer');
 
+  const aboutMe = useRef<HTMLDivElement>(null)
+
+  const scrollToElement = (element: RefObject<HTMLDivElement | null>) => {
+    if (element.current) {
+      element.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     const textInterval = setInterval(() => {
       setType(HEROTYPES[Math.floor(Math.random() * HEROTYPES.length)])
@@ -30,12 +38,56 @@ export default function Home() {
     return () => clearInterval(textInterval)
   })
 
+  useEffect(() => {
+    (async () => {
+      if (typeof window !== 'undefined') {
+        const loader = document.getElementById('globalLoader');
+        const loaderTop = document.getElementById('loader-top');
+        const loaderBottom = document.getElementById('loader-bottom');
+        const loaderScreen = document.getElementById('loader-screen');
+
+        if (loader && loaderTop && loaderBottom && loaderScreen){
+          await animate(loaderScreen, {opacity:0, display: 'none'}, {duration: 0.5});
+          animate(loaderTop, {translate: '100%'})
+          animate(loaderBottom, {translate: '-100%'})
+          animate(loader, {opacity: 0, display: 'none'})
+        }
+    }})()
+  }, []);
+
   const isMobile = useCustomMediaQuery('(max-width: 768px)');
 
 
 
   return (
     <div style={{overflowX: 'hidden'}}>
+{/* Loader */}
+
+      <div id="globalLoader" className="fixed w-screen h-screen bg-main z-50" style={{zIndex: 999999, top:0}}>
+        <div id="loader-top" className="min-h-[50%] flex-1 bg-secondary">
+          {/* Loader screen */}
+          <div id="loader-screen" className="flex flex-col w-80 h-60 bg-main left-[50%] top-[50%] absolute" style={{borderRadius: tailwindConfig.theme.extend.borderRadius.base ,transform:"translate(-50%, -50%)", boxShadow: tailwindConfig.theme.extend.boxShadow.shadow}}>
+            <div className="w-full h-10 flex items-center justify-end" style={{borderRadius: '20px', border: '4px black solid', background: '#ff69b4'}}>
+              <div className="w-4 h-4 rounded-xl mx-1 bg-black" />
+              <div className="w-4 h-4 rounded-xl mx-1 bg-black" />
+              <div className="w-4 h-4 rounded-xl mx-1 bg-black" />
+            </div>
+
+            {/* Loading */}
+            <div className=" flex flex-1 justify-center flex-col items-center">
+              <div className="w-[80%] h-10" style={{borderRadius: '20px', border: '4px solid black', boxShadow: tailwindConfig.theme.extend.boxShadow.shadow}}>
+                <div className="loader w-10 h-full bg-secondary" style={{borderRadius: '20px'}}/>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div id="loader-bottom" className="flex min-h-[50%] flex-1 bg-bg">
+
+        </div>
+
+      </div>
+
       <div className="m-auto grid lg:grid-cols-2" style={{background: tailwindConfig.theme.extend.colors.bg}}>
         <div style={{background: `${tailwindConfig.theme.extend.colors.secondary}`}} className=" flex flex-col justify-center lg:px-36  mt-0 lg:min-h-[calc(100vh-15em)] min-h-screen lg:border-r-4 border-r-black border-solid">
           <div className="flex flex-col mx-10">
@@ -66,7 +118,9 @@ export default function Home() {
                     ))}
                 </motion.h2>
               </AnimatePresence>
-            <Button className="mt-5" size={'lg'}><ArrowDown />Explore<ArrowDown /></Button>
+            <Button onClick={() => {
+              scrollToElement(aboutMe)
+            }} className="mt-5" size={'lg'}><ArrowDown />Explore<ArrowDown /></Button>
           </div>
           
         </div>
@@ -85,7 +139,7 @@ export default function Home() {
       {/* About me */}
       <Marquee items={['A LITTLE BIT ABOUT ME', 'A LITTLE BIT ABOUT ME', 'A LITTLE BIT ABOUT ME', 'A LITTLE BIT ABOUT ME', 'A LITTLE BIT ABOUT ME','A LITTLE BIT ABOUT ME']} />
       
-      <div className="my-10 flex flex-col">
+      <div id="about-me" ref={aboutMe} className="my-10 flex flex-col">
         <div className="">
           {/* Box */}
           <div className="rocking inline-block mx-5 p-5" style={{transform:`rotateZ(-5deg)`,boxShadow:`${tailwindConfig.theme.extend.boxShadow.shadow}`, background: tailwindConfig.theme.extend.colors.bw, borderRadius: tailwindConfig.theme.extend.borderRadius.base, fontFamily: 'Lexend Mega'}}>
@@ -139,7 +193,7 @@ export default function Home() {
       <Marquee items={['MY SKILLS','MY SKILLS','MY SKILLS','MY SKILLS','MY SKILLS','MY SKILLS','MY SKILLS','MY SKILLS','MY SKILLS','MY SKILLS','MY SKILLS','MY SKILLS', ]} />
       
       {/* Skills */}
-      <div className="pt-10 flex flex-wrap flex-col" style={{background: tailwindConfig.theme.extend.colors.secondary, borderBottom: "solid 4px black"}}>
+      <div id="my-skills" className="pt-10 flex flex-wrap flex-col" style={{background: tailwindConfig.theme.extend.colors.secondary, borderBottom: "solid 4px black"}}>
         <div className=" rocking inline-block mx-5 p-5" style={{alignSelf: 'flex-start', transform:`rotateZ(3deg)`,boxShadow:`${tailwindConfig.theme.extend.boxShadow.shadow}`, background: tailwindConfig.theme.extend.colors.bw, borderRadius: tailwindConfig.theme.extend.borderRadius.base, fontFamily: 'Lexend Mega'}}>
           <h1 className="text-4xl">
             Languages
@@ -201,7 +255,7 @@ export default function Home() {
       {/* Education */}
       <Marquee items={['EDUCATION','EDUCATION','EDUCATION','EDUCATION','EDUCATION','EDUCATION','EDUCATION','EDUCATION','EDUCATION','EDUCATION','EDUCATION','EDUCATION',]} />
       
-      <div className="pt-10 mx-5 pb-16  grid grid-cols-1 lg:grid-cols-2 bg-red-50" style={{background: tailwindConfig.theme.extend.colors.bg}}>
+      <div id="education" className="pt-10 mx-5 pb-16  grid grid-cols-1 lg:grid-cols-2 bg-red-50" style={{background: tailwindConfig.theme.extend.colors.bg}}>
         {EDUCATION.map((e,i) => (
           <Education university={e.university} duration={e.duration} specialization={e.specialization} education={e.education} key={i} />
 
@@ -212,7 +266,7 @@ export default function Home() {
        {/* WorkEx */}
        <Marquee items={['WORK EXPERIENCE','WORK EXPERIENCE','WORK EXPERIENCE','WORK EXPERIENCE','WORK EXPERIENCE','WORK EXPERIENCE','WORK EXPERIENCE','WORK EXPERIENCE',]} />
       
-      <div className="pt-10 mx-5 pb-16 flex flex-wrap flex-col bg-red-50" style={{background: tailwindConfig.theme.extend.colors.bg}}>
+      <div id="work" className="pt-10 mx-5 pb-16 flex flex-wrap flex-col bg-red-50" style={{background: tailwindConfig.theme.extend.colors.bg}}>
           {WORK.map((w,i) => (
             <WorkDopdown fromTo={w.fromTo} workEx={w.workEx} key={i} />
           ))}
@@ -222,7 +276,7 @@ export default function Home() {
       {/* Projects */}
       <Marquee items={['PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS','PROJECTS', ]} />
       
-      <div className="pt-10 mx-5 pb-16 flex flex-wrap flex-col" style={{background: tailwindConfig.theme.extend.colors.bg}}>
+      <div id="projects" className="pt-10 mx-5 pb-16 flex flex-wrap flex-col" style={{background: tailwindConfig.theme.extend.colors.bg}}>
           {PROJECTS.map((p, i) => (
             <ProjectDropdown url={p.url} key={i} title={p.title} imageCaption={p.imageCaption} imageUrl={p.imageUrl} description={p.description} languages={p.languages} />
           ))}
@@ -231,7 +285,7 @@ export default function Home() {
       {/* Get in touch */}
       <Marquee items={['GET IN TOUCH!','GET IN TOUCH!','GET IN TOUCH!','GET IN TOUCH!','GET IN TOUCH!','GET IN TOUCH!','GET IN TOUCH!','GET IN TOUCH!','GET IN TOUCH!','GET IN TOUCH!','GET IN TOUCH!','GET IN TOUCH!',]} />
       
-      <div className="pt-10 pb-10 min-h-[50vh] flex justify-center items-center flex-col" style={{backgroundColor: tailwindConfig.theme.extend.colors.main, backgroundImage: "linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px)", backgroundSize: "100px 100px, 100px 100px, 20px 20px, 20px 20px", backgroundPosition:"-2px -2px, -2px -2px, -1px -1px, -1px -1px"}}>
+      <div id="resume" className="pt-10 pb-10 min-h-[50vh] flex justify-center items-center flex-col" style={{backgroundColor: tailwindConfig.theme.extend.colors.main, backgroundImage: "linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px)", backgroundSize: "100px 100px, 100px 100px, 20px 20px, 20px 20px", backgroundPosition:"-2px -2px, -2px -2px, -1px -1px, -1px -1px"}}>
           <h1 className="text-4xl font-black text-center">
             I&apos;m available on all these platforms 
           </h1>
@@ -286,7 +340,11 @@ export default function Home() {
             <h1 className="text-xl py-10">Download my resume! </h1><ArrowUpRight size={100} />
           </Button>
       </div>
-
+      <footer className="bg-bw text-center" style={{borderTop: '4px solid black'}}>
+         <p className="text-lg p-4 flex flex-1 justify-center items-center">
+            Made with ❤️ and ☕ with Next.js and shadcn
+         </p>
+      </footer>
     </div>
   );
 }

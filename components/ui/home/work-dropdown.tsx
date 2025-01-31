@@ -53,7 +53,7 @@ const InnerAccordion = ({company, imageUrls, designation, account, team, descrip
             </div>
             <div className="flex flex-col flex-1 lg:ml-3 mt-3 lg:mt-0">
               <h1 className="font-black">
-                Designation
+                Designation 
               </h1>
               <h1>{designation}</h1>
               {account && <div className="mt-2">

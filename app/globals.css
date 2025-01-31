@@ -70,9 +70,25 @@ mark{
   transform-origin: center;
 }
 
+.loader {
+  animation: load 1s linear infinite;
+
+}
 @keyframes rotate {
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes load {
+  0% {
+    width:10%
+  }
+  50% {
+    width:50%
+  }
+  100% {
+    width:100%
   }
 }
 
