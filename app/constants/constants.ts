@@ -226,22 +226,7 @@ export const WORK = [
                           "Linux",
                 ]
             },
-            {
-                company: 'Freelance - Vwrk Technologies',
-                imageUrls: ['freelance'], 
-                designation: 'Developer', 
-                account: 'CorpAttire, Stencil Consulting', 
-                description: `I've also been freelancing in my free time, doing work on a contractual basis for Vwrk Technologies. I've worked on creating 
-                and maintaining WordPress Plugins, and deploying a microstore infrastructure on AWS for CorpAttire, a Corporate gifting company, and AWS deployments 
-                for Stencil Consulting. Currently working on helping develop Xclusive, an event management application!`, 
-                languages: [
-                    'Wordpress',
-                    'PHP',
-                    'AWS',
-                    'React',
-                    'NodeJS'
-                ]
-            },
+            
         ]
         
     },
