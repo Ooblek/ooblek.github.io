@@ -10,6 +10,13 @@ export const HEROTYPES = ['Full Stack Developer 📚',
     'Optimization Advocate 🏃'
 ]
 
+export const links = {
+    linkedin: 'https://in.linkedin.com/in/silesh-ganesh',
+    github: 'https://github.com/Ooblek',
+    codepen: 'https://codepen.io/ooblek/',
+    email: 'mailto:sileshg@gmail.com'
+}
+
 export const SKILLS = [
     {
         skill: 'Typescript',
@@ -192,11 +199,11 @@ export const WORK = [
         workEx: [
             {
                 company: 'Wipro',
-                imageUrls: ['wipro', 'cs'], 
+                imageUrls: ['wipro'], 
                 designation: 'Developer L3 - Senior Project Engineer (current)', 
-                account: 'Charles Schwab', 
                 team: 'Retail Client Messaging', 
-                description: `I'm currently a part of the Retail Client Messaging Team from in Charles Schwab, contracted out from Wipro.
+                description: `I'm currently a part of the Retail Client Messaging Team for a top finance and wealth management client,
+                 contracted out from Wipro.
                            I've worked on modernizing the Message Center, decoupling the applcation from the old Monolith 
                            to Angular 14, converting various parts of the application into reusable components that can be used anywhere on the site,
                           API Modernization and Maintainence, integrating AWS multipart uploads, and so much more!`, 
@@ -211,7 +218,7 @@ export const WORK = [
             },
             {
                 company: 'Wipro - Topgear',
-                imageUrls: ['wipro', 'att'], 
+                imageUrls: ['wipro'], 
                 designation: 'Developer', 
                 account: 'AT&T', 
                 team: 'NetLens', 
@@ -224,22 +231,6 @@ export const WORK = [
                           "BASH",
                           "Azure",
                           "Linux",
-                ]
-            },
-            {
-                company: 'Freelance - Vwrk Technologies',
-                imageUrls: ['freelance'], 
-                designation: 'Developer', 
-                account: 'CorpAttire, Stencil Consulting', 
-                description: `I've also been freelancing in my free time, doing work on a contractual basis for Vwrk Technologies. I've worked on creating 
-                and maintaining WordPress Plugins, and deploying a microstore infrastructure on AWS for CorpAttire, a Corporate gifting company, and AWS deployments 
-                for Stencil Consulting. Currently working on helping develop Xclusive, an event management application!`, 
-                languages: [
-                    'Wordpress',
-                    'PHP',
-                    'AWS',
-                    'React',
-                    'NodeJS'
                 ]
             },
         ]
@@ -270,32 +261,18 @@ export const PROJECTS = [
     {
         title: 'Local Video Summarizer with Phi3.5', 
         imageCaption: 'Video Summarizer', 
-        imageUrl: 'https://hips.hearstapps.com/hmg-prod/images/flowers-trees-and-bushes-reach-their-peak-of-full-bloom-in-news-photo-1678292967.jpg?resize=300:*', 
+        imageUrl: '/localslm.png', 
         description: 'A Video Lecture Summarizer that runs locally on mid to high end computers, running on a finetuned version of phi3.5', 
         languages: ['Microsoft Phi 3.5', 'Python', 'FastApi', 'Tauri', 'React']
     },
     {
         title: 'CodePen Demos', 
         imageCaption: 'My CodePen!', 
-        imageUrl: 'https://hips.hearstapps.com/hmg-prod/images/flowers-trees-and-bushes-reach-their-peak-of-full-bloom-in-news-photo-1678292967.jpg?resize=300:*', 
+        imageUrl: '/codepen.svg', 
         description: 'Demos using various frameworks, or just plain HTML/CSS/JS. My most viewed Pen is a demo of GSAP\'s Scrolltrigger to animate text (viewed over 8000 times!). I like to think my code lives on in atleast 8000 projects', 
         languages: ['HTML', 'CSS', 'TS', 'GSAP', 'MatterJS', 'Phaser', '...and many more!'],
         url: 'https://codepen.io/ooblek'
     },
-    {
-        title: 'Ping', 
-        imageCaption: 'Ping!', 
-        imageUrl: 'https://hips.hearstapps.com/hmg-prod/images/flowers-trees-and-bushes-reach-their-peak-of-full-bloom-in-news-photo-1678292967.jpg?resize=300:*', 
-        description: 'A remake of Pong using Pygame. ', 
-        languages: ['Python']
-    },
-    {
-        title: 'SeizureSnow', 
-        imageCaption: 'A Music Visualizer', 
-        imageUrl: 'https://hips.hearstapps.com/hmg-prod/images/flowers-trees-and-bushes-reach-their-peak-of-full-bloom-in-news-photo-1678292967.jpg?resize=300:*', 
-        description: 'A music visualizer made using Processing.', 
-        languages: ['Processing']
-    }
 
 ]
 

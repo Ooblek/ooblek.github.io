@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button"
 import tailwindConfig from "@/tailwind.config";
 import { RefObject, useEffect, useRef, useState } from "react";
-import { EDUCATION, FRAMEWORKS, HEROTYPES, OTHERS, PROJECTS, SKILLS, WORK } from "./constants/constants";
+import { EDUCATION, FRAMEWORKS, HEROTYPES, links, OTHERS, PROJECTS, SKILLS, WORK } from "./constants/constants";
 import {  animate, AnimatePresence, motion, Variants } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Hand, Mail, Smile } from "lucide-react";
 import Marquee from "@/components/ui/marquee";
@@ -47,15 +47,39 @@ export default function Home() {
         const loaderScreen = document.getElementById('loader-screen');
 
         if (loader && loaderTop && loaderBottom && loaderScreen){
-          await animate(loaderScreen, {opacity:0, display: 'none'}, {duration: 0.5});
-          animate(loaderTop, {translate: '100%'})
-          animate(loaderBottom, {translate: '-100%'})
-          animate(loader, {opacity: 0, display: 'none'})
+          await animate(loaderScreen, {opacity:0, display: 'none'}, {duration: 0.5, ease: 'backInOut'});
+          animate(loaderTop, {translate: '100%' }, {duration: 0.5, ease: 'backOut'})
+          animate(loaderBottom, {translate: '-100%'}, {duration: 0.5, ease: 'backOut'})
+          animate(loader, {opacity: 0, display: 'none'},{duration: 1,ease: 'backInOut'})
         }
     }})()
   }, []);
 
   const isMobile = useCustomMediaQuery('(max-width: 768px)');
+
+  const handleOpenLinkedin = () => {
+    if (typeof window !== 'undefined') {
+      window.open(links.linkedin)
+    }
+  }
+
+  const handleOpenCodepen = () => {
+    if (typeof window !== 'undefined') {
+      window.open(links.codepen)
+    }
+  }
+
+  const handleOpenGithub = () => {
+    if (typeof window !== 'undefined') {
+      window.open(links.github)
+    }
+  }
+
+  const handleOpenMail = () => {
+    if (typeof window !== 'undefined') {
+      window.open(links.email)
+    }
+  }
 
 
 
@@ -63,8 +87,8 @@ export default function Home() {
     <div style={{overflowX: 'hidden'}}>
 {/* Loader */}
 
-      <div id="globalLoader" className="fixed w-screen h-screen bg-main z-50" style={{zIndex: 999999, top:0}}>
-        <div id="loader-top" className="min-h-[50%] flex-1 bg-secondary">
+      <div id="globalLoader" className="fixed w-screen h-screen  z-50" style={{zIndex: 999999, top:0}}>
+        <div id="loader-top" className="min-h-[50%] flex-1 bg-bg">
           {/* Loader screen */}
           <div id="loader-screen" className="flex flex-col w-80 h-60 bg-main left-[50%] top-[50%] absolute" style={{borderRadius: tailwindConfig.theme.extend.borderRadius.base ,transform:"translate(-50%, -50%)", boxShadow: tailwindConfig.theme.extend.boxShadow.shadow}}>
             <div className="w-full h-10 flex items-center justify-end" style={{borderRadius: '20px', border: '4px black solid', background: '#ff69b4'}}>
@@ -226,14 +250,7 @@ export default function Home() {
           <h1 className="text-4xl">
             Other Skills
           </h1>
-          {/* <motion.div
-           animate="animate"
-           exit={"exit"}
-           initial={"initial"}
-           variants={rotationAnimation}
-          > */}
             <Image className="rotation" style={{position: 'absolute',top:-20, right:-50}} alt="" src="/other.png" width={80} height={80}></Image>
-          {/* </motion.div> */}
         </div>
         <motion.div initial={{
           y:100
@@ -290,8 +307,8 @@ export default function Home() {
             I&apos;m available on all these platforms 
           </h1>
           <div className="grid grid-cols-2 mt-5">
-            <Card className="mx-0 lg:mx:5">
-              <CardHeader>
+            <Card className="mx-0 lg:mx:5" onClick={handleOpenLinkedin}>
+              <CardHeader >
                 <CardTitle>Linkedin</CardTitle>
                 <CardDescription></CardDescription>
               </CardHeader>
@@ -300,7 +317,7 @@ export default function Home() {
                     
                 </CardContent>
             </Card>
-            <Card className="mx-0 lg:mx:5">
+            <Card className="mx-0 lg:mx:5" onClick={handleOpenGithub}>
               <CardHeader>
                 <CardTitle style={{textAlign: 'center'}}>Github</CardTitle>
                 <CardDescription></CardDescription>
@@ -310,7 +327,7 @@ export default function Home() {
                     
                 </CardContent>
             </Card>
-            <Card className="mx-0 lg:mx:5">
+            <Card className="mx-0 lg:mx:5" onClick={handleOpenCodepen}>
               <CardHeader>
                 <CardTitle>CodePen</CardTitle>
                 <CardDescription></CardDescription>
@@ -321,7 +338,7 @@ export default function Home() {
                 </CardContent>
             </Card>
 
-            <Card className="mx-0 lg:mx:5">
+            <Card className="mx-0 lg:mx:5" onClick={handleOpenMail}>
               <CardHeader>
                 <CardTitle style={{textAlign:'center'}}>Email</CardTitle>
                 <CardDescription></CardDescription>
@@ -336,8 +353,8 @@ export default function Home() {
 
           </div>
 
-          <Button variant={"neutral"} size={"lg"} style={{padding: "2rem", marginTop: '2rem'}}>
-            <h1 className="text-xl py-10">Download my resume! </h1><ArrowUpRight size={100} />
+          <Button  variant={"neutral"} size={"lg"} style={{padding: "2rem", marginTop: '2rem'}}>
+            <a className="text-xl py-10 flex justify-center items-center" href="/resume.pdf" download={'resume_siles.pdf'}>Download my resume! <ArrowUpRight fontSize={200} size={300} /></a>
           </Button>
       </div>
       <footer className="bg-bw text-center" style={{borderTop: '4px solid black'}}>
@@ -397,8 +414,6 @@ const imageAnimation :Variants = {
 }
 
 const handAnimationVariant :Variants = {
-  // initial: {rotateZ: 20},
-  
   animate: {
     rotateZ: [20, -20, 20],
     transition: {

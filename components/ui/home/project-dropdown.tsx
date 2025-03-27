@@ -11,11 +11,11 @@ export default function ProjectDropdown({title, imageCaption, imageUrl, descript
     url?: string
 }){
     return(
-        <Accordion  className="w-full pt-5" type="single" collapsible>
+        <Accordion className="w-full pt-5" type="single" collapsible>
         <AccordionItem className="max-w-full" value="item-1">
           <AccordionTrigger>{title}</AccordionTrigger>
           <AccordionContent>
-            <div className="flex flex-col lg:flex-row">
+            <div className="flex w- flex-col lg:flex-row">
               <div className="flex bg-red-50 h-full">
                 <ImageCard
                   caption={imageCaption}
